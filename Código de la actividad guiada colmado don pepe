@@ -1,0 +1,48 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+using namespace std;
+
+const int DIAS = 7;
+
+int main() {
+    string dias[DIAS] = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
+    double ventas[DIAS], total = 0;
+
+    for (int i = 0; i < DIAS; i++) {
+        cout << "Ventas del " << dias[i] << ": RD$ ";
+        cin >> ventas[i];
+        total += ventas[i];
+    }
+
+    int mayor = 0, menor = 0, sobre = 0;
+    double prom = total / DIAS;
+
+    cout << "\n===== VENTAS DEL COLMADO DON PEPE =====\n" << fixed << setprecision(2);
+    for (int i = 0; i < DIAS; i++) {
+        cout << dias[i] << ": RD$ " << ventas[i] << "\n";
+        if (ventas[i] > ventas[mayor]) mayor = i;
+        if (ventas[i] < ventas[menor]) menor = i;
+        if (ventas[i] > prom) sobre++;
+    }
+
+    cout << "----------------------------------------\n"
+         << "Total semanal: RD$ " << total << "\n"
+         << "Promedio diario: RD$ " << prom << "\n"
+         << "Mayor venta: " << dias[mayor] << " (RD$ " << ventas[mayor] << ")\n"
+         << "Menor venta: " << dias[menor] << " (RD$ " << ventas[menor] << ")\n"
+         << "Dias sobre el promedio: " << sobre;
+
+    if (sobre > 0) {
+        cout << " -> ";
+        bool primero = true;
+        for (int i = 0; i < DIAS; i++) {
+            if (ventas[i] > prom) {
+                cout << (primero ? "" : ", ") << dias[i];
+                primero = false;
+            }
+        }
+    }
+    cout << "\n";
+    return 0;
+}
